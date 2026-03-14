@@ -11,7 +11,7 @@
 
 **Git**
 
-- Git repository: `<link>`
+- Git repository: https://github.com/LongLe2115/project-proposal
 
 ```
 Lưu ý:
