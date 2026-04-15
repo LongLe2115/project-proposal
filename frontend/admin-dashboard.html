@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MRP Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 5.5rem;
+        font-size: 118.75%;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen w-full text-slate-800">
+    <aside class="w-72 min-h-screen bg-slate-950 text-white fixed left-0 top-0 z-40 flex flex-col">
+      <div class="p-6 border-b border-white/10">
+        <a href="./index.html" class="flex items-center gap-2 no-underline text-white">
+          <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
+            <iconify-icon icon="solar:buildings-linear" class="text-xl"></iconify-icon>
+          </div>
+          <span class="font-semibold text-lg tracking-tight">MRP Admin</span>
+        </a>
+      </div>
+      <nav class="flex-1 py-4">
+        <a href="#" data-page="overview" class="sidebar-link flex items-center gap-3 px-6 py-3.5 text-base text-slate-300 hover:text-white hover:bg-white/5">
+          <iconify-icon icon="solar:home-2-linear" class="text-xl"></iconify-icon>
+          Tổng quan
+        </a>
+        <a href="#users" data-page="users" class="sidebar-link flex items-center gap-3 px-6 py-3.5 text-base text-white bg-white/10 border-l-4 border-amber-400">
+          <iconify-icon icon="solar:users-group-linear" class="text-xl"></iconify-icon>
+          Quản lý người dùng
+        </a>
+        <a href="#bookings" data-page="bookings" class="sidebar-link flex items-center gap-3 px-6 py-3.5 text-base text-slate-300 hover:text-white hover:bg-white/5">
+          <iconify-icon icon="solar:calendar-linear" class="text-xl"></iconify-icon>
+          Quản lý đặt phòng
+        </a>
+        <a href="#rooms" data-page="rooms" class="sidebar-link flex items-center gap-3 px-6 py-3.5 text-base text-slate-300 hover:text-white hover:bg-white/5">
+          <iconify-icon icon="solar:buildings-2-linear" class="text-xl"></iconify-icon>
+          Quản lý phòng
+        </a>
+      </nav>
+      <div class="p-4 border-t border-white/10">
+        <button id="btnSidebarLogout" type="button" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-slate-400 hover:bg-white/5 hover:text-white text-base">
+          <iconify-icon icon="solar:logout-2-linear" class="text-lg"></iconify-icon>
+          Đăng xuất
+        </button>
+      </div>
+    </aside>
+
+    <header class="ml-72 h-20 bg-white border-b border-slate-200 flex items-center justify-between px-4 sm:px-6 lg:px-10 xl:px-14 2xl:px-20">
+      <h1 class="text-xl lg:text-2xl font-semibold text-slate-900">Quản trị hệ thống đặt phòng</h1>
+      <div class="flex items-center gap-4">
+        <span id="headerAdminEmail" class="text-base text-slate-500">Admin</span>
+        <button id="btnAdminLogout" type="button" class="px-5 py-2.5 rounded-lg border border-slate-200 text-base font-medium hover:bg-slate-50">Đăng xuất</button>
+      </div>
+    </header>
+
+    <main class="ml-72 min-h-[calc(100vh-5rem)] w-[calc(100%-18rem)] max-w-none box-border p-6 sm:p-8 lg:p-10 xl:p-12 2xl:px-16 2xl:py-14">
+      <section id="viewOverview" class="hidden mb-8">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-4">Tổng quan</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+          <div class="bg-white border border-slate-200 rounded-xl p-5 lg:p-6 shadow-sm">
+            <p class="text-sm text-slate-500">Tổng số người dùng</p>
+            <p id="statUsers" class="text-3xl lg:text-4xl font-semibold mt-2">0</p>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-xl p-5 lg:p-6 shadow-sm">
+            <p class="text-sm text-slate-500">Đặt phòng active</p>
+            <p id="statBookings" class="text-3xl lg:text-4xl font-semibold mt-2">0</p>
+          </div>
+          <div class="bg-white border border-slate-200 rounded-xl p-5 lg:p-6 shadow-sm">
+            <p class="text-sm text-slate-500">Phòng họp</p>
+            <p id="statRooms" class="text-3xl lg:text-4xl font-semibold mt-2">0</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="viewUsers">
+      <div class="flex items-center justify-between mb-5">
+        <div>
+          <h1 class="text-2xl font-semibold text-slate-900">Quản lý người dùng</h1>
+          <p class="text-sm text-slate-500 mt-1">Tạo, xem và xóa tài khoản trong hệ thống.</p>
+        </div>
+        <button id="btnCreateUser" type="button" class="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800">+ Tạo tài khoản</button>
+      </div>
+
+      <section class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead class="bg-slate-50 border-b border-slate-200">
+              <tr>
+                <th class="px-4 py-3 text-sm font-medium text-slate-600">ID</th>
+                <th class="px-4 py-3 text-sm font-medium text-slate-600">Email</th>
+                <th class="px-4 py-3 text-sm font-medium text-slate-600">Họ tên</th>
+                <th class="px-4 py-3 text-sm font-medium text-slate-600">Vai trò</th>
+                <th class="px-4 py-3 text-sm font-medium text-slate-600">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody" class="divide-y divide-slate-100"></tbody>
+          </table>
+        </div>
+        <p id="usersEmpty" class="hidden p-6 text-sm text-slate-500">Chưa có người dùng nào.</p>
+      </section>
+      </section>
+
+      <section id="viewBookings" class="hidden">
+        <h2 class="text-2xl font-semibold text-slate-900 mb-5">Quản lý đặt phòng</h2>
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Phòng</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Tiêu đề</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Thời gian</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Trạng thái</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTableBody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+          <p id="bookingsEmpty" class="hidden p-6 text-sm text-slate-500">Chưa có đặt phòng nào.</p>
+        </section>
+      </section>
+
+      <section id="viewRooms" class="hidden">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5">
+          <div>
+            <h2 class="text-2xl font-semibold text-slate-900">Quản lý phòng họp</h2>
+            <p class="text-sm text-slate-500 mt-1">Tạo, sửa và xóa phòng họp. Import CSV có cùng thuộc tính với form bên dưới.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <input id="roomCsvFile" type="file" accept=".csv,text/csv" class="hidden" />
+            <button id="btnImportRoomsCsv" type="button" class="px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-800 text-sm font-semibold hover:bg-slate-50">Import CSV</button>
+            <button id="btnCreateRoom" type="button" class="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800">+ Tạo phòng</button>
+          </div>
+        </div>
+        <section class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">ID</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600 w-24">Ảnh</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Tên phòng</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Vị trí</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Sức chứa</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Giá (VNĐ)</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Trạng thái</th>
+                  <th class="px-4 py-3 text-sm font-medium text-slate-600">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="roomsTableBody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+          <p id="roomsEmpty" class="hidden p-6 text-sm text-slate-500">Chưa có phòng nào.</p>
+        </section>
+      </section>
+    </main>
+
+    <div id="modalCreateUser" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+      <section class="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+        <h2 class="text-lg font-semibold text-slate-900 mb-4">Tạo tài khoản</h2>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Email</span>
+          <input id="newUserEmail" type="email" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="user@gmail.com" />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Họ tên</span>
+          <input id="newUserName" type="text" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="Nguyễn Văn A" />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Mật khẩu</span>
+          <input id="newUserPassword" type="password" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="Tối thiểu 6 ký tự" />
+        </label>
+        <label class="block mb-5">
+          <span class="block text-sm text-slate-600 mb-1">Vai trò</span>
+          <select id="newUserRole" class="w-full px-4 py-2 rounded-lg border border-slate-200">
+            <option value="customer">Khách hàng</option>
+            <option value="admin">Quản trị</option>
+          </select>
+        </label>
+        <div class="flex gap-3">
+          <button id="modalCreateUserCancel" type="button" class="flex-1 py-2.5 rounded-lg border border-slate-200 text-sm font-medium">Hủy</button>
+          <button id="modalCreateUserConfirm" type="button" class="flex-1 py-2.5 rounded-lg bg-slate-900 text-white text-sm font-semibold">Tạo</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="modalRoom" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+      <section class="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
+        <h2 id="modalRoomTitle" class="text-lg font-semibold text-slate-900 mb-4">Tạo phòng</h2>
+        <input id="roomId" type="hidden" />
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Tên phòng</span>
+          <input id="roomName" type="text" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="Phòng A1" />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Vị trí</span>
+          <input id="roomLocation" type="text" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="Tầng 1" />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Sức chứa</span>
+          <input id="roomCapacity" type="number" min="1" class="w-full px-4 py-2 rounded-lg border border-slate-200" value="10" />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Ảnh URL</span>
+          <input id="roomImageUrl" type="url" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="https://..." />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Tiện nghi</span>
+          <input id="roomAmenities" type="text" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="Máy chiếu, WiFi" />
+        </label>
+        <label class="block mb-3">
+          <span class="block text-sm text-slate-600 mb-1">Giá (VNĐ / giờ)</span>
+          <input id="roomPrice" type="number" min="0" step="1000" class="w-full px-4 py-2 rounded-lg border border-slate-200" placeholder="0" value="0" />
+        </label>
+        <label class="block mb-5">
+          <span class="block text-sm text-slate-600 mb-1">Trạng thái</span>
+          <select id="roomStatus" class="w-full px-4 py-2 rounded-lg border border-slate-200">
+            <option value="active">Hoạt động</option>
+            <option value="inactive">Tạm đóng</option>
+          </select>
+        </label>
+        <div class="flex gap-3">
+          <button id="modalRoomCancel" type="button" class="flex-1 py-2.5 rounded-lg border border-slate-200 text-sm font-medium">Hủy</button>
+          <button id="modalRoomConfirm" type="button" class="flex-1 py-2.5 rounded-lg bg-slate-900 text-white text-sm font-semibold">Lưu</button>
+        </div>
+      </section>
+    </div>
+
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2"></div>
+
+    <script src="./shared.js?v=10"></script>
+    <script src="./admin-dashboard.js?v=9"></script>
+  </body>
+</html>

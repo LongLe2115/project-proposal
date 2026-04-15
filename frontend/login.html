@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Đăng nhập — Meeting Room Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./login-page.css?v=5" />
+  </head>
+  <body class="account-page page-shell account-page--customer">
+    <div class="account-bg" aria-hidden="true"></div>
+
+    <div class="account-wrap">
+      <div class="account-back-row">
+        <a href="./index.html" class="account-back-link">← Trở về trang chủ</a>
+        <span class="account-admin-hint">Quản trị viên? <a href="./admin-login.html" class="account-admin-link">Đăng nhập quản trị</a></span>
+      </div>
+      <div class="account-card">
+        <div class="account-card-header">
+          <p class="account-brand">Meeting Room Pro</p>
+          <h1 id="accountTitle">Đăng nhập</h1>
+          <p class="account-card-subtitle">Tài khoản khách hàng — đặt phòng họp</p>
+        </div>
+
+        <div class="account-card-body">
+          <div class="account-tabs">
+            <button type="button" class="account-tab active" data-tab="login">Đăng nhập</button>
+            <button type="button" class="account-tab" data-tab="register">Đăng ký</button>
+          </div>
+
+          <div id="tab-login" class="account-panel">
+            <label class="account-field">
+              <span class="account-field-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <input id="loginEmail" type="text" class="account-input" placeholder="Email (@gmail.com)" autocomplete="email" />
+            </label>
+            <label class="account-field">
+              <span class="account-field-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input id="loginPassword" type="password" class="account-input" placeholder="Mật khẩu" autocomplete="current-password" />
+            </label>
+            <div class="account-options">
+              <label class="account-remember">
+                <input type="checkbox" id="rememberMe" />
+                <span class="account-switch"></span>
+                <span>Ghi nhớ đăng nhập</span>
+              </label>
+              <a href="#" class="account-forgot" id="forgotPassword">Quên mật khẩu?</a>
+            </div>
+            <button type="button" id="btnLogin" class="account-btn">Đăng nhập</button>
+          </div>
+
+          <div id="tab-register" class="account-panel hidden">
+            <label class="account-field">
+              <span class="account-field-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <input id="regName" type="text" class="account-input" placeholder="Họ tên" autocomplete="name" />
+            </label>
+            <label class="account-field">
+              <span class="account-field-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+              </span>
+              <input id="regEmail" type="email" class="account-input" placeholder="Email (@gmail.com)" autocomplete="email" />
+            </label>
+            <label class="account-field">
+              <span class="account-field-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input id="regPassword" type="password" class="account-input" placeholder="Mật khẩu" autocomplete="new-password" />
+            </label>
+            <button type="button" id="btnRegister" class="account-btn">Đăng ký</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./shared.js"></script>
+    <script src="./login.js"></script>
+  </body>
+</html>
